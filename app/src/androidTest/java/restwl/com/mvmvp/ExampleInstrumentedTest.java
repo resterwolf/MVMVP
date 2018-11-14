@@ -1,4 +1,4 @@
-package restwl.com.mvpvm;
+package restwl.com.mvmvp;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

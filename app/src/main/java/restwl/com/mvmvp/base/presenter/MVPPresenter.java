@@ -1,16 +1,16 @@
-package restwl.com.mvpvm.base.presenter;
+package restwl.com.mvmvp.base.presenter;
 
 import androidx.lifecycle.Lifecycle;
 import io.reactivex.disposables.Disposable;
-import restwl.com.mvpvm.base.ui.MVPView;
+import restwl.com.mvmvp.base.ui.MVPView;
 
 public interface MVPPresenter<View extends MVPView> {
-
-    void attachLifecycle(Lifecycle lifecycle);
 
     void onViewCreated(View view);
 
     void onViewDestroyed();
+
+    void attachLifecycle(Lifecycle lifecycle);
 
     boolean isViewAttached();
 
@@ -18,6 +18,6 @@ public interface MVPPresenter<View extends MVPView> {
 
     void onPresenterDestroy();
 
-    void subscribeOnDestroyDisposable(Disposable disposable);
+    void subscribeOnPresenterDestroyDisposable(Disposable disposable);
 
 }

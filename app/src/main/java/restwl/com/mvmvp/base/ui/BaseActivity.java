@@ -1,4 +1,4 @@
-package restwl.com.mvpvm.base.ui;
+package restwl.com.mvmvp.base.ui;
 
 import android.os.Bundle;
 
@@ -6,8 +6,8 @@ import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import restwl.com.mvpvm.base.presenter.MVPPresenter;
-import restwl.com.mvpvm.base.viewmodel.MVPViewModel;
+import restwl.com.mvmvp.base.presenter.MVPPresenter;
+import restwl.com.mvmvp.base.viewmodel.MVPViewModel;
 
 public abstract class BaseActivity<View extends MVPView, Presenter extends MVPPresenter<View>,
     ViewModel extends MVPViewModel<View, Presenter>> extends AppCompatActivity implements MVPView {
@@ -32,10 +32,15 @@ public abstract class BaseActivity<View extends MVPView, Presenter extends MVPPr
         if (getLayoutResId() != 0) {
             setContentView(getLayoutResId());
         }
-        mViewModel = createViewModel();
-        mViewModel.setPresenter(createPresenter());
-        mViewModel.getPresenter().onViewCreated(getMVPView());
+        if (mViewModel == null) {
+            mViewModel = createViewModel();
+        }
+        if (mViewModel.getPresenter() == null) {
+            mViewModel.setPresenter(createPresenter());
+
+        }
         mViewModel.getPresenter().attachLifecycle(getLifecycle());
+        mViewModel.getPresenter().onViewCreated(getMVPView());
     }
 
     @Override

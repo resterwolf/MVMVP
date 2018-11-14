@@ -1,4 +1,4 @@
-package restwl.com.mvpvm.sample;
+package restwl.com.mvmvp.sample;
 
 import android.os.Bundle;
 import android.view.View;
@@ -6,9 +6,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProviders;
-import restwl.com.mvpvm.R;
-import restwl.com.mvpvm.Utils;
-import restwl.com.mvpvm.base.ui.BaseActivity;
+import restwl.com.mvmvp.R;
+import restwl.com.mvmvp.base.ui.BaseActivity;
 
 public class MainActivity extends BaseActivity<MainContact.View, MainContact.Presenter,
     MainContact.ViewModel> implements MainContact.View {
@@ -39,8 +38,12 @@ public class MainActivity extends BaseActivity<MainContact.View, MainContact.Pre
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Utils.showDebugMessage(getPresenter().toString());
         findViewById(R.id.button).setOnClickListener(this::onButtonClick);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     private void onButtonClick(View view) {
@@ -49,6 +52,6 @@ public class MainActivity extends BaseActivity<MainContact.View, MainContact.Pre
 
     @Override
     public void showToastMessage(String message) {
-        Toast.makeText(this,message,Toast.LENGTH_LONG).show();
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 }

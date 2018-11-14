@@ -1,4 +1,4 @@
-package restwl.com.mvpvm.sample;
+package restwl.com.mvmvp.sample.MainFragment;
 
 import java.util.concurrent.TimeUnit;
 
@@ -7,13 +7,14 @@ import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import restwl.com.mvpvm.base.presenter.BasePresenter;
+import restwl.com.mvmvp.base.presenter.BasePresenter;
+import restwl.com.mvmvp.sample.MainContact;
 
-public class MainPresenter extends BasePresenter<MainContact.View> implements MainContact.Presenter {
+public class MainFragmentPresenter extends BasePresenter<MainContact.FragmentView>
+    implements MainContact.FragmentPresenter {
 
     @Override
     public void onButtonClicked() {
-
         Disposable disposable = Flowable.<String>create(emitter -> {
             TimeUnit.SECONDS.sleep(3);
             String str = "Hello world!!!";
@@ -26,6 +27,6 @@ public class MainPresenter extends BasePresenter<MainContact.View> implements Ma
                     getView().showToastMessage(s);
                 }
             });
-        subscribeOnDestroyDisposable(disposable);
+        subscribeOnPresenterDestroyDisposable(disposable);
     }
 }
