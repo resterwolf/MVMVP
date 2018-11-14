@@ -18,6 +18,6 @@ public interface MVPPresenter<View extends MVPView> {
 
     void onPresenterDestroy();
 
-    void subscribeDisposableOnDestroy(Disposable disposable);
+    void subscribeOnDestroyDisposable(Disposable disposable);
 
 }

@@ -13,8 +13,6 @@ import restwl.com.mvpvm.base.ui.BaseActivity;
 public class MainActivity extends BaseActivity<MainContact.View, MainContact.Presenter,
     MainContact.ViewModel> implements MainContact.View {
 
-
-
     @Override
     public int getLayoutResId() {
         return R.layout.activity_main;
@@ -32,6 +30,7 @@ public class MainActivity extends BaseActivity<MainContact.View, MainContact.Pre
         return new MainPresenter();
     }
 
+    @NonNull
     @Override
     public MainContact.View getMVPView() {
         return this;

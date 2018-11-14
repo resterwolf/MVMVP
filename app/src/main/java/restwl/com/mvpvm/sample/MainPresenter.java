@@ -21,8 +21,11 @@ public class MainPresenter extends BasePresenter<MainContact.View> implements Ma
         }, BackpressureStrategy.BUFFER)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(getView()::showToastMessage);
-        subscribeDisposableOnDestroy(disposable);
+            .subscribe(s -> {
+                if (isViewAttached()) {
+                    getView().showToastMessage(s);
+                }
+            });
+        subscribeOnDestroyDisposable(disposable);
     }
-
 }

@@ -23,7 +23,8 @@ public abstract class BaseActivity<View extends MVPView, Presenter extends MVPPr
     public abstract @NonNull
     Presenter createPresenter();
 
-    public abstract View getMVPView();
+    public abstract @NonNull
+    View getMVPView();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
