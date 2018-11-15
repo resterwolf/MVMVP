@@ -8,10 +8,10 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import restwl.com.mvmvp.base.presenter.BasePresenter;
-import restwl.com.mvmvp.sample.MainContact;
+import restwl.com.mvmvp.sample.MainContract;
 
-public class MainFragmentPresenter extends BasePresenter<MainContact.FragmentView>
-    implements MainContact.FragmentPresenter {
+public class MainFragmentPresenter extends BasePresenter<MainContract.FragmentView>
+    implements MainContract.FragmentPresenter {
 
     @Override
     public void onButtonClicked() {

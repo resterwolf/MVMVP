@@ -1,4 +1,6 @@
 package restwl.com.mvmvp.base.ui;
 
-public interface MVPView {
+import androidx.lifecycle.LifecycleOwner;
+
+public interface MVPView extends LifecycleOwner {
 }

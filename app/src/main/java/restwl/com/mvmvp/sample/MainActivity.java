@@ -9,8 +9,8 @@ import androidx.lifecycle.ViewModelProviders;
 import restwl.com.mvmvp.R;
 import restwl.com.mvmvp.base.ui.BaseActivity;
 
-public class MainActivity extends BaseActivity<MainContact.View, MainContact.Presenter,
-    MainContact.ViewModel> implements MainContact.View {
+public class MainActivity extends BaseActivity<MainContract.View, MainContract.Presenter,
+    MainContract.ViewModel> implements MainContract.View {
 
     @Override
     public int getLayoutResId() {
@@ -19,19 +19,19 @@ public class MainActivity extends BaseActivity<MainContact.View, MainContact.Pre
 
     @NonNull
     @Override
-    public MainContact.ViewModel createViewModel() {
+    public MainContract.ViewModel createViewModel() {
         return ViewModelProviders.of(this).get(MainViewModel.class);
     }
 
     @NonNull
     @Override
-    public MainContact.Presenter createPresenter() {
+    public MainContract.Presenter createPresenter() {
         return new MainPresenter();
     }
 
     @NonNull
     @Override
-    public MainContact.View getMVPView() {
+    public MainContract.View getMVPView() {
         return this;
     }
 

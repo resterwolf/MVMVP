@@ -9,14 +9,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProviders;
 import restwl.com.mvmvp.R;
+import restwl.com.mvmvp.Utils;
 import restwl.com.mvmvp.base.ui.BaseFragment;
-import restwl.com.mvmvp.sample.MainContact;
+import restwl.com.mvmvp.sample.MainContract;
 import restwl.com.mvmvp.sample.MainViewModel;
 
-public class MainFragment extends BaseFragment<MainContact.FragmentView,
-    MainContact.FragmentPresenter, MainContact.FragmentViewModel> implements MainContact.FragmentView {
+public class MainFragment extends BaseFragment<MainContract.FragmentView,
+    MainContract.FragmentPresenter, MainContract.FragmentViewModel> implements MainContract.FragmentView {
 
     public MainFragment() {
         // Required empty public constructor
@@ -29,19 +31,19 @@ public class MainFragment extends BaseFragment<MainContact.FragmentView,
 
     @NonNull
     @Override
-    public MainContact.FragmentViewModel createViewModel() {
+    public MainContract.FragmentViewModel createViewModel() {
         return ViewModelProviders.of(getActivity()).get(MainViewModel.class);
     }
 
     @NonNull
     @Override
-    public MainContact.FragmentPresenter createFragmentPresenter() {
+    public MainContract.FragmentPresenter createFragmentPresenter() {
         return new MainFragmentPresenter();
     }
 
     @NonNull
     @Override
-    public MainContact.FragmentView getFragmentView() {
+    public MainContract.FragmentView getFragmentView() {
         return this;
     }
 
@@ -66,4 +68,5 @@ public class MainFragment extends BaseFragment<MainContact.FragmentView,
     public void showToastMessage(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
     }
+
 }

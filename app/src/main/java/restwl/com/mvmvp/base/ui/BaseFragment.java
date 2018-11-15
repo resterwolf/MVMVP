@@ -50,7 +50,6 @@ public abstract class BaseFragment<FragmentView extends MVPView,
         if (mViewModel.getFragmentPresenter(getId()) == null) {
             mViewModel.setFragmentPresenter(getId(), createFragmentPresenter());
         }
-        mViewModel.getFragmentPresenter(getId()).attachLifecycle(getLifecycle());
         mViewModel.getFragmentPresenter(getId()).onFragmentViewCreated(getFragmentView());
 
         return view;

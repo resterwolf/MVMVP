@@ -39,7 +39,6 @@ public abstract class BaseActivity<View extends MVPView, Presenter extends MVPPr
             mViewModel.setPresenter(createPresenter());
 
         }
-        mViewModel.getPresenter().attachLifecycle(getLifecycle());
         mViewModel.getPresenter().onViewCreated(getMVPView());
     }
 

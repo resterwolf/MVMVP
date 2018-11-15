@@ -1,14 +1,12 @@
 package restwl.com.mvmvp.base.presenter;
 
 import androidx.annotation.Nullable;
-import androidx.lifecycle.Lifecycle;
-import androidx.lifecycle.LifecycleObserver;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import restwl.com.mvmvp.base.ui.MVPView;
 
 public class BasePresenter<View extends MVPView> implements MVPPresenter<View>,
-    MVPFragmentPresenter<View>, LifecycleObserver {
+    MVPFragmentPresenter<View> {
 
     private View mView;
     private CompositeDisposable mDisposables = new CompositeDisposable();
@@ -21,11 +19,6 @@ public class BasePresenter<View extends MVPView> implements MVPPresenter<View>,
     @Override
     public void onViewDestroyed() {
         mView = null;
-    }
-
-    @Override
-    public void attachLifecycle(Lifecycle lifecycle) {
-        lifecycle.addObserver(this);
     }
 
     @Override

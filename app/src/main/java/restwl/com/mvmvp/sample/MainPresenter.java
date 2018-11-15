@@ -1,35 +1,26 @@
 package restwl.com.mvmvp.sample;
 
-import java.util.concurrent.TimeUnit;
-
 import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
-import io.reactivex.BackpressureStrategy;
-import io.reactivex.Flowable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 import restwl.com.mvmvp.Utils;
 import restwl.com.mvmvp.base.presenter.BasePresenter;
+import restwl.com.mvmvp.sample.data.Service;
 
-public class MainPresenter extends BasePresenter<MainContact.View> implements MainContact.Presenter {
+public class MainPresenter extends BasePresenter<MainContract.View> implements MainContract.Presenter,
+    LifecycleObserver {
+
+    private Service mService = new Service();
+
+    @Override
+    public void onViewCreated(MainContract.View view) {
+        super.onViewCreated(view);
+        view.getLifecycle().addObserver(this);
+    }
 
     @Override
     public void onButtonClicked() {
-
-        Disposable disposable = Flowable.<String>create(emitter -> {
-            TimeUnit.SECONDS.sleep(3);
-            String str = "Hello world!!!";
-            emitter.onNext(str);
-        }, BackpressureStrategy.BUFFER)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(s -> {
-                if (isViewAttached()) {
-                    getView().showToastMessage(s);
-                }
-            });
-        subscribeOnPresenterDestroyDisposable(disposable);
+        mService.loadData().observe(getView(), getView()::showToastMessage);
     }
 
     // Subscribe on resume event
