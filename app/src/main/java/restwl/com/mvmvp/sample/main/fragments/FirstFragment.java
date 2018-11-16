@@ -14,6 +14,7 @@ import restwl.com.mvmvp.R;
 import restwl.com.mvmvp.Utils;
 import restwl.com.mvmvp.base.ui.BaseFragment;
 import restwl.com.mvmvp.sample.main.MainContract;
+import restwl.com.mvmvp.sample.main.MainInteractor;
 import restwl.com.mvmvp.sample.main.NavigationManager;
 import restwl.com.mvmvp.sample.main.ViewModel;
 
@@ -41,7 +42,7 @@ public class FirstFragment extends BaseFragment<MainContract.FirstFragmentView,
     @NonNull
     @Override
     public MainContract.FirstFragmentPresenter createFragmentPresenter() {
-        return new FirstFragmentPresenter(new NavigationManager(getActivity()));
+        return new FirstFragmentPresenter(new NavigationManager(getActivity()), new MainInteractor());
     }
 
     @NonNull

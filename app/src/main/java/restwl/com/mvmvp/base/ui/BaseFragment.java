@@ -13,7 +13,8 @@ import restwl.com.mvmvp.base.presenter.MVPFragmentPresenter;
 import restwl.com.mvmvp.base.viewmodel.MVPFragmentViewModel;
 
 public abstract class BaseFragment<FragmentView extends MVPView,
-    FragmentPresenter extends MVPFragmentPresenter<FragmentView>, ViewModel extends MVPFragmentViewModel> extends Fragment {
+    FragmentPresenter extends MVPFragmentPresenter<FragmentView>,
+    ViewModel extends MVPFragmentViewModel> extends Fragment {
 
     private ViewModel mViewModel;
     private FragmentPresenter mFragmentPresenter;

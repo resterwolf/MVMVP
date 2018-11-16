@@ -2,6 +2,7 @@ package restwl.com.mvmvp.sample.main.fragments;
 
 import java.util.concurrent.TimeUnit;
 
+import androidx.annotation.NonNull;
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -11,10 +12,11 @@ import restwl.com.mvmvp.base.presenter.BasePresenter;
 import restwl.com.mvmvp.sample.main.MainContract;
 
 public class FirstFragmentPresenter extends BasePresenter<MainContract.FirstFragmentView,
-    MainContract.NavigationManager> implements MainContract.FirstFragmentPresenter {
+    MainContract.NavigationManager, MainContract.MainInteractor> implements MainContract.FirstFragmentPresenter {
 
-    public FirstFragmentPresenter(MainContract.NavigationManager navigationManager) {
-        super(navigationManager);
+    public FirstFragmentPresenter(@NonNull MainContract.NavigationManager navigationManager,
+                                  @NonNull MainContract.MainInteractor interactor) {
+        super(navigationManager, interactor);
     }
 
     @Override

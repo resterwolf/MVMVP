@@ -1,5 +1,6 @@
 package restwl.com.mvmvp.base;
 
+import restwl.com.mvmvp.base.Interactor.MVPInteractor;
 import restwl.com.mvmvp.base.navigation.MVPNavigationManager;
 import restwl.com.mvmvp.base.presenter.MVPFragmentPresenter;
 import restwl.com.mvmvp.base.presenter.MVPPresenter;
@@ -15,7 +16,6 @@ public interface TemplateContract {
     interface Presenter extends MVPPresenter<View> {
     }
 
-
     interface ViewModel extends MVPViewModel {
 
     }
@@ -25,6 +25,10 @@ public interface TemplateContract {
     }
 
     interface NavigationManager extends MVPNavigationManager {
+
+    }
+
+    interface Interactor extends MVPInteractor{
 
     }
 

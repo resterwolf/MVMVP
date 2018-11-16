@@ -4,18 +4,23 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import restwl.com.mvmvp.base.Interactor.MVPInteractor;
 import restwl.com.mvmvp.base.navigation.MVPNavigationManager;
 import restwl.com.mvmvp.base.ui.MVPView;
 
-public abstract class BasePresenter<View extends MVPView, NavigationManager extends MVPNavigationManager>
+public abstract class BasePresenter<View extends MVPView, NavigationManager extends MVPNavigationManager,
+    Interactor extends MVPInteractor>
     implements MVPPresenter<View>, MVPFragmentPresenter<View> {
 
     private View mView;
     private NavigationManager mNavigationManager;
+    private Interactor mInteractor;
     private CompositeDisposable mDisposables = new CompositeDisposable();
 
-    public BasePresenter(NavigationManager navigationManager) {
-        this.mNavigationManager = navigationManager;
+    public BasePresenter(@NonNull NavigationManager navigationManager,
+                         @NonNull Interactor interactor) {
+        mNavigationManager = navigationManager;
+        mInteractor = interactor;
     }
 
     @Override
@@ -66,9 +71,13 @@ public abstract class BasePresenter<View extends MVPView, NavigationManager exte
         return mView;
     }
 
-    public @NonNull
-    NavigationManager getNavigationManager() {
+    @NonNull
+    protected NavigationManager getNavigationManager() {
         return mNavigationManager;
     }
 
+    @NonNull
+    protected Interactor getInteractor() {
+        return mInteractor;
+    }
 }

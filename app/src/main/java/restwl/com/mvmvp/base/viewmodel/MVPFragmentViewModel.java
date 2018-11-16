@@ -8,6 +8,7 @@ public interface MVPFragmentViewModel {
 
     <V extends MVPView, P extends MVPFragmentPresenter<V>> P getFragmentPresenter(@NonNull String tag);
 
-    void setFragmentPresenter(@NonNull String tag, @NonNull MVPFragmentPresenter<? extends MVPView> presenter);
+    void setFragmentPresenter(@NonNull String tag,
+                              @NonNull MVPFragmentPresenter<? extends MVPView> presenter);
 
 }

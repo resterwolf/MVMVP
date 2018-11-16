@@ -5,6 +5,7 @@ import java.util.concurrent.TimeUnit;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import io.reactivex.Completable;
+import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
 
 public class Service {
@@ -20,4 +21,8 @@ public class Service {
         return mLiveData;
     }
 
+
+    public Observable<String> loadSampleData() {
+        return Observable.just("Hello wold");
+    }
 }

@@ -42,6 +42,7 @@ public abstract class BaseActivity<View extends MVPView, Presenter extends MVPPr
             mPresenter = createPresenter();
             mViewModel.setPresenter(mPresenter);
         }
+        mPresenter.onViewCreated(getMVPView());
     }
 
     @Override

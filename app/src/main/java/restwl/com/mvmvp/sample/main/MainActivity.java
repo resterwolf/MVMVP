@@ -29,7 +29,7 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
     @NonNull
     @Override
     public MainContract.Presenter createPresenter() {
-        return new MainPresenter(new NavigationManager(this));
+        return new MainPresenter(new NavigationManager(this), new MainInteractor());
     }
 
     @NonNull
@@ -50,13 +50,7 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
     }
 
     private void onButtonClick(View view) {
-
-        getSupportFragmentManager()
-            .beginTransaction()
-            .add(R.id.frame_layout, new FirstFragment(), FirstFragment.TAG)
-            .commit();
-
-//        getPresenter().onButtonClicked();
+        getPresenter().onButtonClicked();
     }
 
     @Override

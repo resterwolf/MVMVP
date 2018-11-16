@@ -1,6 +1,8 @@
 package restwl.com.mvmvp.sample.main;
 
 import androidx.fragment.app.Fragment;
+import io.reactivex.Observable;
+import restwl.com.mvmvp.base.Interactor.MVPInteractor;
 import restwl.com.mvmvp.base.navigation.MVPNavigationManager;
 import restwl.com.mvmvp.base.presenter.MVPFragmentPresenter;
 import restwl.com.mvmvp.base.presenter.MVPPresenter;
@@ -12,6 +14,7 @@ public interface MainContract {
 
     interface View extends MVPView {
         void showToastMessage(String message);
+
         void showFragment(Fragment fragment, String tag);
     }
 
@@ -31,6 +34,9 @@ public interface MainContract {
         void startSecondActivity();
     }
 
+    interface MainInteractor extends MVPInteractor {
+        Observable<String> loadData();
+    }
 
     // Main fragment
     interface FirstFragmentView extends MVPView {

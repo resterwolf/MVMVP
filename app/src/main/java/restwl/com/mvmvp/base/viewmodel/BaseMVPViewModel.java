@@ -12,7 +12,8 @@ import restwl.com.mvmvp.base.presenter.MVPFragmentPresenter;
 import restwl.com.mvmvp.base.presenter.MVPPresenter;
 import restwl.com.mvmvp.base.ui.MVPView;
 
-public abstract class BaseMVPViewModel extends AndroidViewModel implements MVPViewModel, MVPFragmentViewModel {
+public abstract class BaseMVPViewModel extends AndroidViewModel implements MVPViewModel,
+    MVPFragmentViewModel {
 
     private MVPPresenter mPresenter;
     private Map<String, MVPFragmentPresenter> mFragmentPresenterMap

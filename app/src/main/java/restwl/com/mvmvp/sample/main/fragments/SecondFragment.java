@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProviders;
 import restwl.com.mvmvp.R;
 import restwl.com.mvmvp.base.ui.BaseFragment;
 import restwl.com.mvmvp.sample.main.MainContract;
+import restwl.com.mvmvp.sample.main.MainInteractor;
 import restwl.com.mvmvp.sample.main.NavigationManager;
 import restwl.com.mvmvp.sample.main.ViewModel;
 
@@ -37,7 +38,7 @@ public class SecondFragment extends BaseFragment<MainContract.SecondFragmentView
     @NonNull
     @Override
     public MainContract.SecondFragmentPresenter createFragmentPresenter() {
-        return new SecondFragmentPresenter(new NavigationManager(getActivity()));
+        return new SecondFragmentPresenter(new NavigationManager(getActivity()), new MainInteractor());
     }
 
     @NonNull

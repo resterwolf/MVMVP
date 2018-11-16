@@ -3,20 +3,19 @@ package restwl.com.mvmvp.sample.main;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
+import io.reactivex.disposables.Disposable;
+import restwl.com.mvmvp.Utils;
 import restwl.com.mvmvp.base.presenter.BasePresenter;
 import restwl.com.mvmvp.sample.data.Service;
 import restwl.com.mvmvp.sample.main.fragments.FirstFragment;
 
-public class MainPresenter extends BasePresenter<MainContract.View, MainContract.NavigationManager>
+public class MainPresenter extends BasePresenter<MainContract.View, MainContract.NavigationManager,
+    MainContract.MainInteractor>
     implements MainContract.Presenter,
     LifecycleObserver {
 
-    FirstFragment fragment = new FirstFragment();
-
-    private Service mService = new Service();
-
-    public MainPresenter(MainContract.NavigationManager navigationManager) {
-        super(navigationManager);
+    public MainPresenter(MainContract.NavigationManager navigationManager, MainContract.MainInteractor interactor) {
+        super(navigationManager, interactor);
     }
 
     @Override
@@ -27,16 +26,16 @@ public class MainPresenter extends BasePresenter<MainContract.View, MainContract
 
     @Override
     public void onButtonClicked() {
+        Utils.showDebugMessage("OnCLick");
+        Disposable disposable = getInteractor().loadData().subscribe(s -> {
+            getView().showToastMessage(s);
+            if (isViewAttached()) {
 
-        getNavigationManager().startSecondActivity();
-//        getView().showFragment(fragment, FirstFragment.TAG);
-//        if(fragment.getPresenter() == null) {
-//
-//            Utils.showDebugMessage("Null");
-//        } else {
-//            fragment.getPresenter().onButtonClicked();
-//            Utils.showDebugMessage(" no nuul");
-//        }
+            }
+        }, error -> {
+            getView().showToastMessage(error.getMessage());
+        });
+        subscribeOnPresenterDestroyDisposable(disposable);
     }
 
     // Subscribe on resume event
@@ -44,6 +43,5 @@ public class MainPresenter extends BasePresenter<MainContract.View, MainContract
     public void foo() {
 
     }
-
 
 }
