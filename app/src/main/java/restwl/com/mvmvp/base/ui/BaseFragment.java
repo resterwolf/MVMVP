@@ -13,10 +13,10 @@ import restwl.com.mvmvp.base.presenter.MVPFragmentPresenter;
 import restwl.com.mvmvp.base.viewmodel.MVPFragmentViewModel;
 
 public abstract class BaseFragment<FragmentView extends MVPView,
-    FragmentPresenter extends MVPFragmentPresenter<FragmentView>,
-    ViewModel extends MVPFragmentViewModel<FragmentView, FragmentPresenter>> extends Fragment {
+    FragmentPresenter extends MVPFragmentPresenter<FragmentView>, ViewModel extends MVPFragmentViewModel> extends Fragment {
 
     private ViewModel mViewModel;
+    private FragmentPresenter mFragmentPresenter;
 
     public BaseFragment() {
     }
@@ -47,10 +47,15 @@ public abstract class BaseFragment<FragmentView extends MVPView,
         if (mViewModel == null) {
             mViewModel = createViewModel();
         }
-        if (mViewModel.getFragmentPresenter(getId()) == null) {
-            mViewModel.setFragmentPresenter(getId(), createFragmentPresenter());
+        String tag = getTag();
+        if (tag == null) throw new IllegalArgumentException();
+        mFragmentPresenter = mViewModel.getFragmentPresenter(tag);
+        if (mFragmentPresenter == null) {
+            mFragmentPresenter = createFragmentPresenter();
+            mViewModel.setFragmentPresenter(tag, mFragmentPresenter);
         }
-        mViewModel.getFragmentPresenter(getId()).onFragmentViewCreated(getFragmentView());
+
+        mFragmentPresenter.onFragmentViewCreated(getFragmentView());
 
         return view;
     }
@@ -58,14 +63,16 @@ public abstract class BaseFragment<FragmentView extends MVPView,
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        mViewModel.getFragmentPresenter(getId()).onFragmentViewDestroyed();
+        mFragmentPresenter.onFragmentViewDestroyed();
     }
 
     public FragmentPresenter getPresenter() {
-        return mViewModel.getFragmentPresenter(getId());
+        return mFragmentPresenter;
     }
 
     public ViewModel getViewModel() {
         return mViewModel;
     }
+
+
 }

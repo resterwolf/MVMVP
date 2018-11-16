@@ -10,9 +10,10 @@ import restwl.com.mvmvp.base.presenter.MVPPresenter;
 import restwl.com.mvmvp.base.viewmodel.MVPViewModel;
 
 public abstract class BaseActivity<View extends MVPView, Presenter extends MVPPresenter<View>,
-    ViewModel extends MVPViewModel<View, Presenter>> extends AppCompatActivity implements MVPView {
+    ViewModel extends MVPViewModel> extends AppCompatActivity implements MVPView {
 
     private ViewModel mViewModel;
+    private Presenter mPresenter;
 
     public abstract @LayoutRes
     int getLayoutResId();
@@ -35,21 +36,22 @@ public abstract class BaseActivity<View extends MVPView, Presenter extends MVPPr
         if (mViewModel == null) {
             mViewModel = createViewModel();
         }
-        if (mViewModel.getPresenter() == null) {
-            mViewModel.setPresenter(createPresenter());
 
+        mPresenter = mViewModel.getPresenter();
+        if (mPresenter == null) {
+            mPresenter = createPresenter();
+            mViewModel.setPresenter(mPresenter);
         }
-        mViewModel.getPresenter().onViewCreated(getMVPView());
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mViewModel.getPresenter().onViewDestroyed();
+        mPresenter.onViewDestroyed();
     }
 
     public Presenter getPresenter() {
-        return mViewModel.getPresenter();
+        return mPresenter;
     }
 
     public ViewModel getViewModel() {

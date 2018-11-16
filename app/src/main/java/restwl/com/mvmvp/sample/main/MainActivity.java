@@ -1,13 +1,16 @@
-package restwl.com.mvmvp.sample;
+package restwl.com.mvmvp.sample.main;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import restwl.com.mvmvp.R;
+import restwl.com.mvmvp.Utils;
 import restwl.com.mvmvp.base.ui.BaseActivity;
+import restwl.com.mvmvp.sample.main.fragments.FirstFragment;
 
 public class MainActivity extends BaseActivity<MainContract.View, MainContract.Presenter,
     MainContract.ViewModel> implements MainContract.View {
@@ -20,13 +23,13 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
     @NonNull
     @Override
     public MainContract.ViewModel createViewModel() {
-        return ViewModelProviders.of(this).get(MainViewModel.class);
+        return ViewModelProviders.of(this).get(ViewModel.class);
     }
 
     @NonNull
     @Override
     public MainContract.Presenter createPresenter() {
-        return new MainPresenter();
+        return new MainPresenter(new NavigationManager(this));
     }
 
     @NonNull
@@ -47,11 +50,25 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
     }
 
     private void onButtonClick(View view) {
-        getPresenter().onButtonClicked();
+
+        getSupportFragmentManager()
+            .beginTransaction()
+            .add(R.id.frame_layout, new FirstFragment(), FirstFragment.TAG)
+            .commit();
+
+//        getPresenter().onButtonClicked();
     }
 
     @Override
     public void showToastMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void showFragment(Fragment fragment, String tag) {
+        getSupportFragmentManager()
+            .beginTransaction()
+            .add(R.id.frame_layout, fragment, tag)
+            .commitNow();
     }
 }

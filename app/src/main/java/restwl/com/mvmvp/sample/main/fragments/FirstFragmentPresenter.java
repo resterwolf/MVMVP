@@ -1,4 +1,4 @@
-package restwl.com.mvmvp.sample.MainFragment;
+package restwl.com.mvmvp.sample.main.fragments;
 
 import java.util.concurrent.TimeUnit;
 
@@ -8,10 +8,14 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import restwl.com.mvmvp.base.presenter.BasePresenter;
-import restwl.com.mvmvp.sample.MainContract;
+import restwl.com.mvmvp.sample.main.MainContract;
 
-public class MainFragmentPresenter extends BasePresenter<MainContract.FragmentView>
-    implements MainContract.FragmentPresenter {
+public class FirstFragmentPresenter extends BasePresenter<MainContract.FirstFragmentView,
+    MainContract.NavigationManager> implements MainContract.FirstFragmentPresenter {
+
+    public FirstFragmentPresenter(MainContract.NavigationManager navigationManager) {
+        super(navigationManager);
+    }
 
     @Override
     public void onButtonClicked() {

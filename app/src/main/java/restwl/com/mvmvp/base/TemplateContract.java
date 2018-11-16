@@ -1,5 +1,6 @@
 package restwl.com.mvmvp.base;
 
+import restwl.com.mvmvp.base.navigation.MVPNavigationManager;
 import restwl.com.mvmvp.base.presenter.MVPFragmentPresenter;
 import restwl.com.mvmvp.base.presenter.MVPPresenter;
 import restwl.com.mvmvp.base.ui.MVPView;
@@ -14,21 +15,37 @@ public interface TemplateContract {
     interface Presenter extends MVPPresenter<View> {
     }
 
-    interface ViewModel extends MVPViewModel<View, Presenter> {
+
+    interface ViewModel extends MVPViewModel {
+
+    }
+
+    interface FragmentViewModel extends MVPFragmentViewModel {
+
+    }
+
+    interface NavigationManager extends MVPNavigationManager {
+
+    }
+
+    // Fragment A
+    interface FragmentViewA extends MVPView {
+
+    }
+
+    interface FragmentPresenterA extends MVPFragmentPresenter<FragmentViewA> {
+
+    }
+
+    // Fragment B
+    interface FragmentViewB extends MVPView {
+
+    }
+
+    interface FragmentPresenterB extends MVPFragmentPresenter<FragmentViewB> {
 
     }
 
 
-    interface FragmentView extends MVPView {
-
-    }
-
-    interface FragmentPresenter extends MVPFragmentPresenter<FragmentView> {
-
-    }
-
-    interface FragmentViewModel extends MVPFragmentViewModel<FragmentView, FragmentPresenter> {
-
-    }
 
 }

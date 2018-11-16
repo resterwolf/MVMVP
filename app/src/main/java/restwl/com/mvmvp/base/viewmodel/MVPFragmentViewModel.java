@@ -4,11 +4,10 @@ import androidx.annotation.NonNull;
 import restwl.com.mvmvp.base.presenter.MVPFragmentPresenter;
 import restwl.com.mvmvp.base.ui.MVPView;
 
-public interface MVPFragmentViewModel<View extends MVPView,
-    FragmentPresenter extends MVPFragmentPresenter<View>> {
+public interface MVPFragmentViewModel {
 
-    FragmentPresenter getFragmentPresenter(int id);
+    <V extends MVPView, P extends MVPFragmentPresenter<V>> P getFragmentPresenter(@NonNull String tag);
 
-    void setFragmentPresenter(int id, @NonNull FragmentPresenter presenter);
+    void setFragmentPresenter(@NonNull String tag, @NonNull MVPFragmentPresenter<? extends MVPView> presenter);
 
 }
