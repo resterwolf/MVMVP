@@ -1,57 +1,51 @@
 package restwl.com.mvmvp.sample.main;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
 import io.reactivex.Observable;
 import restwl.com.mvmvp.base.Interactor.MVPInteractor;
-import restwl.com.mvmvp.base.navigation.MVPNavigationManager;
-import restwl.com.mvmvp.base.presenter.MVPFragmentPresenter;
-import restwl.com.mvmvp.base.presenter.MVPPresenter;
-import restwl.com.mvmvp.base.ui.MVPView;
-import restwl.com.mvmvp.base.viewmodel.MVPFragmentViewModel;
-import restwl.com.mvmvp.base.viewmodel.MVPViewModel;
+import restwl.com.mvmvp.base.presenter.MvvmpPresenter;
+import restwl.com.mvmvp.base.ui.MvvmpView;
+import restwl.com.mvmvp.base.viewmodel.MvvmpViewModel;
 
 public interface MainContract {
 
-    interface View extends MVPView {
+    interface View extends MvvmpView {
         void showToastMessage(String message);
 
         void showFragment(Fragment fragment, String tag);
+
+        void showPogress(boolean show);
+
     }
 
-    interface Presenter extends MVPPresenter<View> {
+    interface Presenter extends MvvmpPresenter<View> {
         void onButtonClicked();
     }
 
-    interface ViewModel extends MVPViewModel {
+    interface ViewModel extends MvvmpViewModel<Presenter> {
 
-    }
-
-    interface FragmentViewModel extends MVPFragmentViewModel {
-
-    }
-
-    interface NavigationManager extends MVPNavigationManager {
-        void startSecondActivity();
     }
 
     interface MainInteractor extends MVPInteractor {
-        Observable<String> loadData();
+        Observable<String> loadDataRx();
+        LiveData<String> loadData();
     }
 
     // Main fragment
-    interface FirstFragmentView extends MVPView {
+    interface FirstFragmentView extends MvvmpView {
         void showToastMessage(String message);
     }
 
-    interface FirstFragmentPresenter extends MVPFragmentPresenter<FirstFragmentView> {
+    interface FirstFragmentPresenter extends MvvmpPresenter<FirstFragmentView> {
         void onButtonClicked();
     }
 
     // Main fragment
-    interface SecondFragmentView extends MVPView {
+    interface SecondFragmentView extends MvvmpView {
     }
 
-    interface SecondFragmentPresenter extends MVPFragmentPresenter<SecondFragmentView> {
+    interface SecondFragmentPresenter extends MvvmpPresenter<SecondFragmentView> {
     }
 
 }

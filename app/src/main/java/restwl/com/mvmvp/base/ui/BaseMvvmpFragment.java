@@ -9,18 +9,14 @@ import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import restwl.com.mvmvp.base.presenter.MVPFragmentPresenter;
-import restwl.com.mvmvp.base.viewmodel.MVPFragmentViewModel;
+import restwl.com.mvmvp.base.presenter.MvvmpPresenter;
+import restwl.com.mvmvp.base.viewmodel.MvvmpViewModel;
 
-public abstract class BaseFragment<FragmentView extends MVPView,
-    FragmentPresenter extends MVPFragmentPresenter<FragmentView>,
-    ViewModel extends MVPFragmentViewModel> extends Fragment {
+public abstract class BaseMvvmpFragment<FragmentView extends MvvmpView,
+    FragmentPresenter extends MvvmpPresenter<FragmentView>,
+    ViewModel extends MvvmpViewModel> extends Fragment {
 
     private ViewModel mViewModel;
-    private FragmentPresenter mFragmentPresenter;
-
-    public BaseFragment() {
-    }
 
     public abstract @LayoutRes
     int getFragmentLayout();
@@ -45,35 +41,31 @@ public abstract class BaseFragment<FragmentView extends MVPView,
             view = super.onCreateView(inflater, container, savedInstanceState);
         }
 
-        if (mViewModel == null) {
+        if (getViewModel() == null) {
             mViewModel = createViewModel();
         }
-        String tag = getTag();
-        if (tag == null) throw new IllegalArgumentException();
-        mFragmentPresenter = mViewModel.getFragmentPresenter(tag);
-        if (mFragmentPresenter == null) {
-            mFragmentPresenter = createFragmentPresenter();
-            mViewModel.setFragmentPresenter(tag, mFragmentPresenter);
+
+        if (getPresenter() == null) {
+            getViewModel().setFragmentPresenter(getClass(), createFragmentPresenter());
         }
 
-        mFragmentPresenter.onFragmentViewCreated(getFragmentView());
+        getPresenter().onViewCreated(getFragmentView());
 
         return view;
     }
 
     @Override
     public void onDestroyView() {
+        getPresenter().onViewDestroyed();
         super.onDestroyView();
-        mFragmentPresenter.onFragmentViewDestroyed();
     }
 
+    @SuppressWarnings("unchecked")
     public FragmentPresenter getPresenter() {
-        return mFragmentPresenter;
+        return (FragmentPresenter) getViewModel().getFragmentPresenter(getClass());
     }
 
     public ViewModel getViewModel() {
         return mViewModel;
     }
-
-
 }

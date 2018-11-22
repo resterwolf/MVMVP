@@ -1,23 +1,19 @@
 package restwl.com.mvmvp.sample.main.fragments;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProviders;
 import restwl.com.mvmvp.R;
-import restwl.com.mvmvp.base.ui.BaseFragment;
+import restwl.com.mvmvp.base.ui.BaseMvvmpFragment;
 import restwl.com.mvmvp.sample.main.MainContract;
-import restwl.com.mvmvp.sample.main.MainInteractor;
-import restwl.com.mvmvp.sample.main.NavigationManager;
 import restwl.com.mvmvp.sample.main.ViewModel;
 
-public class SecondFragment extends BaseFragment<MainContract.SecondFragmentView,
-    MainContract.SecondFragmentPresenter, MainContract.FragmentViewModel>
+public class SecondFragment extends BaseMvvmpFragment<MainContract.SecondFragmentView,
+    MainContract.SecondFragmentPresenter, MainContract.ViewModel>
     implements MainContract.SecondFragmentView {
 
     public SecondFragment() {
@@ -31,14 +27,14 @@ public class SecondFragment extends BaseFragment<MainContract.SecondFragmentView
 
     @NonNull
     @Override
-    public MainContract.FragmentViewModel createViewModel() {
+    public MainContract.ViewModel createViewModel() {
         return ViewModelProviders.of(getActivity()).get(ViewModel.class);
     }
 
     @NonNull
     @Override
     public MainContract.SecondFragmentPresenter createFragmentPresenter() {
-        return new SecondFragmentPresenter(new NavigationManager(getActivity()), new MainInteractor());
+        return new SecondFragmentPresenter();
     }
 
     @NonNull

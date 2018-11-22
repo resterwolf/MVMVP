@@ -8,16 +8,11 @@ import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import restwl.com.mvmvp.base.presenter.BasePresenter;
+import restwl.com.mvmvp.base.presenter.BaseMvvmpPresenter;
 import restwl.com.mvmvp.sample.main.MainContract;
 
-public class FirstFragmentPresenter extends BasePresenter<MainContract.FirstFragmentView,
-    MainContract.NavigationManager, MainContract.MainInteractor> implements MainContract.FirstFragmentPresenter {
-
-    public FirstFragmentPresenter(@NonNull MainContract.NavigationManager navigationManager,
-                                  @NonNull MainContract.MainInteractor interactor) {
-        super(navigationManager, interactor);
-    }
+public class FirstFragmentPresenter extends BaseMvvmpPresenter<MainContract.FirstFragmentView>
+    implements MainContract.FirstFragmentPresenter {
 
     @Override
     public void onButtonClicked() {
@@ -33,6 +28,6 @@ public class FirstFragmentPresenter extends BasePresenter<MainContract.FirstFrag
                     getView().showToastMessage(s);
                 }
             });
-        subscribeOnPresenterDestroyDisposable(disposable);
+        addDisposableOnDestroy(disposable);
     }
 }

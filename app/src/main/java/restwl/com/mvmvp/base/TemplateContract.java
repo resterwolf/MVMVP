@@ -1,55 +1,35 @@
 package restwl.com.mvmvp.base;
 
-import restwl.com.mvmvp.base.Interactor.MVPInteractor;
-import restwl.com.mvmvp.base.navigation.MVPNavigationManager;
-import restwl.com.mvmvp.base.presenter.MVPFragmentPresenter;
-import restwl.com.mvmvp.base.presenter.MVPPresenter;
-import restwl.com.mvmvp.base.ui.MVPView;
-import restwl.com.mvmvp.base.viewmodel.MVPFragmentViewModel;
-import restwl.com.mvmvp.base.viewmodel.MVPViewModel;
+import restwl.com.mvmvp.base.presenter.MvvmpPresenter;
+import restwl.com.mvmvp.base.ui.MvvmpView;
+import restwl.com.mvmvp.base.viewmodel.MvvmpViewModel;
 
 public interface TemplateContract {
 
-    interface View extends MVPView {
+    interface View extends MvvmpView {
     }
 
-    interface Presenter extends MVPPresenter<View> {
+    interface Presenter extends MvvmpPresenter<View> {
     }
 
-    interface ViewModel extends MVPViewModel {
-
-    }
-
-    interface FragmentViewModel extends MVPFragmentViewModel {
+    interface ViewModel extends MvvmpViewModel<Presenter> {
 
     }
 
-    interface NavigationManager extends MVPNavigationManager {
+    interface FragmentAView extends MvvmpView {
 
     }
 
-    interface Interactor extends MVPInteractor{
+    interface FragmentAPresenter extends MvvmpPresenter<FragmentAView> {
 
     }
 
-    // Fragment A
-    interface FragmentViewA extends MVPView {
+    interface FragmentBView extends MvvmpView {
 
     }
 
-    interface FragmentPresenterA extends MVPFragmentPresenter<FragmentViewA> {
+    interface FragmentBPresenter extends MvvmpPresenter<FragmentBView> {
 
     }
-
-    // Fragment B
-    interface FragmentViewB extends MVPView {
-
-    }
-
-    interface FragmentPresenterB extends MVPFragmentPresenter<FragmentViewB> {
-
-    }
-
-
 
 }

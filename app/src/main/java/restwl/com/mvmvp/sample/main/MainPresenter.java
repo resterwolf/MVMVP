@@ -1,47 +1,45 @@
 package restwl.com.mvmvp.sample.main;
 
-import androidx.lifecycle.Lifecycle;
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LifecycleObserver;
-import androidx.lifecycle.OnLifecycleEvent;
-import io.reactivex.disposables.Disposable;
+import androidx.lifecycle.MutableLiveData;
 import restwl.com.mvmvp.Utils;
-import restwl.com.mvmvp.base.presenter.BasePresenter;
-import restwl.com.mvmvp.sample.data.Service;
-import restwl.com.mvmvp.sample.main.fragments.FirstFragment;
+import restwl.com.mvmvp.base.presenter.BaseMvvmpPresenter;
 
-public class MainPresenter extends BasePresenter<MainContract.View, MainContract.NavigationManager,
-    MainContract.MainInteractor>
+public class MainPresenter extends BaseMvvmpPresenter<MainContract.View>
     implements MainContract.Presenter,
     LifecycleObserver {
 
-    public MainPresenter(MainContract.NavigationManager navigationManager, MainContract.MainInteractor interactor) {
-        super(navigationManager, interactor);
-    }
+    private MutableLiveData<Runnable> mShowProgressLivaData = new MutableLiveData<>();
 
     @Override
-    public void onViewCreated(MainContract.View view) {
+    public void onViewCreated(@NonNull MainContract.View view) {
         super.onViewCreated(view);
-        view.getLifecycle().addObserver(this);
+        mShowProgressLivaData.observe(view, this::executeRunnable);
+    }
+
+    private void executeRunnable(Runnable runnable) {
+        if (runnable != null) {
+            runnable.run();
+        }
     }
 
     @Override
     public void onButtonClicked() {
-        Utils.showDebugMessage("OnCLick");
-        Disposable disposable = getInteractor().loadData().subscribe(s -> {
-            getView().showToastMessage(s);
-            if (isViewAttached()) {
-
-            }
-        }, error -> {
-            getView().showToastMessage(error.getMessage());
-        });
-        subscribeOnPresenterDestroyDisposable(disposable);
-    }
-
-    // Subscribe on resume event
-    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
-    public void foo() {
-
+        if (mShowProgressLivaData.getValue() == null) {
+            Runnable runnable = () -> {
+                getView().showPogress(true);
+                getView().showToastMessage("Show progress bar");
+            };
+            mShowProgressLivaData.setValue(runnable);
+        } else {
+            Runnable runnable = () -> {
+                getView().showPogress(false);
+                getView().showToastMessage("Hide progress bar");
+            };
+            mShowProgressLivaData.setValue(runnable);
+            mShowProgressLivaData.setValue(null);
+        }
     }
 
 }

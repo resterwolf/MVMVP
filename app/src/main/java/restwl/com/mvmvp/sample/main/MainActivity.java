@@ -2,6 +2,7 @@ package restwl.com.mvmvp.sample.main;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -9,11 +10,13 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import restwl.com.mvmvp.R;
 import restwl.com.mvmvp.Utils;
-import restwl.com.mvmvp.base.ui.BaseActivity;
+import restwl.com.mvmvp.base.ui.BaseMvvmpActivity;
 import restwl.com.mvmvp.sample.main.fragments.FirstFragment;
 
-public class MainActivity extends BaseActivity<MainContract.View, MainContract.Presenter,
+public class MainActivity extends BaseMvvmpActivity<MainContract.View, MainContract.Presenter,
     MainContract.ViewModel> implements MainContract.View {
+
+    private ProgressBar mProgressBar;
 
     @Override
     public int getLayoutResId() {
@@ -29,7 +32,7 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
     @NonNull
     @Override
     public MainContract.Presenter createPresenter() {
-        return new MainPresenter(new NavigationManager(this), new MainInteractor());
+        return new MainPresenter();
     }
 
     @NonNull
@@ -42,6 +45,7 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         findViewById(R.id.button).setOnClickListener(this::onButtonClick);
+        mProgressBar = findViewById(R.id.progressBar);
     }
 
     @Override
@@ -60,9 +64,14 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
 
     @Override
     public void showFragment(Fragment fragment, String tag) {
-        getSupportFragmentManager()
-            .beginTransaction()
-            .add(R.id.frame_layout, fragment, tag)
-            .commitNow();
+    }
+
+    @Override
+    public void showPogress(boolean show) {
+        if (show) {
+            mProgressBar.setVisibility(View.VISIBLE);
+        } else {
+            mProgressBar.setVisibility(View.GONE);
+        }
     }
 }
